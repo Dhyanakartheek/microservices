@@ -1,0 +1,65 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: revpay-api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://revpay-auth-service
+          predicates:
+            - Path=/api/auth/**
+        - id: user-service
+          uri: lb://revpay-user-service
+          predicates:
+            - Path=/api/user/**, /api/payment-methods/**, /api/profile/**
+        - id: wallet-service
+          uri: lb://revpay-wallet-service
+          predicates:
+            - Path=/api/wallet/**, /api/transactions/**, /api/money-requests/**
+        - id: notification-service
+          uri: lb://revpay-notification-service
+          predicates:
+            - Path=/api/notifications/**
+        - id: loan-service
+          uri: lb://revpay-loan-service
+          predicates:
+            - Path=/api/loans/**
+        - id: invoice-service
+          uri: lb://revpay-invoice-service
+          predicates:
+            - Path=/api/invoices/**
+        - id: analytics-service
+          uri: lb://revpay-analytics-service
+          predicates:
+            - Path=/api/analytics/**
+        - id: admin-service
+          uri: lb://revpay-admin-service
+          predicates:
+            - Path=/api/admin/**
+        - id: ai-service
+          uri: lb://revpay-ai-service
+          predicates:
+            - Path=/api/ai/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

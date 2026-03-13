@@ -1,6 +1,38 @@
 version: '3.8'
 
 services:
+  eureka-server:
+    build: ./revpay-eureka-server
+    image: revpay-eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  config-server:
+    build: ./revpay-config-server
+    image: revpay-config-server
+    container_name: config-server
+    ports:
+      - "8888:8888"
+
+  api-gateway:
+    build: ./revpay-api-gateway
+    image: revpay-api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - auth-service
+      - user-service
+      - wallet-service
+      - notification-service
+      - loan-service
+      - invoice-service
+      - analytics-service
+      - admin-service
+      - ai-service
+
   auth-service:
     build: ./revpay-auth-service
     image: revpay-auth-service
@@ -14,6 +46,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   user-service:
     build: ./revpay-user-service
@@ -28,6 +61,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   wallet-service:
     build: ./revpay-wallet-service
@@ -42,6 +76,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   notification-service:
     build: ./revpay-notification-service
@@ -56,6 +91,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   loan-service:
     build: ./revpay-loan-service
@@ -70,6 +106,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   invoice-service:
     build: ./revpay-invoice-service
@@ -84,6 +121,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   analytics-service:
     build: ./revpay-analytics-service
@@ -98,6 +136,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   admin-service:
     build: ./revpay-admin-service
@@ -112,6 +151,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   ai-service:
     build: ./revpay-ai-service
@@ -126,6 +166,7 @@ services:
       - JWT_SECRET=AeExVfx68kU4nXib6ijdxqd5C6PRLzeIoiRhTiQ7lw8
     depends_on:
       - db
+      - eureka-server
 
   db:
     image: mysql:8.0

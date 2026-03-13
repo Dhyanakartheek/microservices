@@ -6,6 +6,9 @@ echo ========================================
 set MVNW=d:\KAR\rEvpay\Development\RevPay\mvnw.cmd
 
 for %%s in (
+  revpay-eureka-server
+  revpay-config-server
+  revpay-api-gateway
   revpay-auth-service
   revpay-user-service
   revpay-wallet-service

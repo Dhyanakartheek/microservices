@@ -5,6 +5,12 @@ echo ========================================
 
 set MVNW=d:\KAR\rEvpay\Development\RevPay\mvnw.cmd
 
+start "Eureka Server (8761)"     cmd /k "cd /d d:\KAR\microservices\revpay-eureka-server && call %MVNW% spring-boot:run"
+timeout /t 5 /nobreak >nul
+start "Config Server (8888)"     cmd /k "cd /d d:\KAR\microservices\revpay-config-server && call %MVNW% spring-boot:run"
+timeout /t 5 /nobreak >nul
+start "API Gateway (8080)"       cmd /k "cd /d d:\KAR\microservices\revpay-api-gateway && call %MVNW% spring-boot:run"
+timeout /t 5 /nobreak >nul
 start "Auth Service (8081)"      cmd /k "cd /d d:\KAR\microservices\revpay-auth-service && call %MVNW% spring-boot:run"
 timeout /t 5 /nobreak >nul
 start "User Service (8082)"      cmd /k "cd /d d:\KAR\microservices\revpay-user-service && call %MVNW% spring-boot:run"
