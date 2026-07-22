@@ -32,6 +32,3 @@ start "AI Service (8089)"        cmd /k "cd /d d:\KAR\microservices\revpay-ai-se
 echo.
 echo All services are starting in separate windows!
 echo Please wait a moment for them to initialize...
-- Clearly state when information is unavailable.
-
-Your primary goal is to help users quickly and accurately understand Ford-related documentation and processes while maintaining a professional and trustworthy user experience.///
